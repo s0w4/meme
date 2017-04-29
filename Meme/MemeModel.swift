@@ -7,13 +7,12 @@
 //
 import UIKit
 
-extension MemeEditorViewController{
-        struct Meme{
-            let topText: String
-            let bottomText : String
-            let originalImage: UIImage
-            let memedImage: UIImage
-            
-        }
 
-    }
+struct Meme {
+    let topText: String
+    let bottomText : String
+    let originalImage: UIImage
+    let memedImage: UIImage
+    
+}
+

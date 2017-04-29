@@ -22,32 +22,17 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     var textFieldId = Int()
     var memedImage: UIImage!
     
-    let memeTextAttributes:[String:Any] = [
-        NSStrokeColorAttributeName: UIColor.black,
-        NSForegroundColorAttributeName: UIColor.white,
-        NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSStrokeWidthAttributeName: NSNumber(value: -4)
-    ]
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         shareButton.isEnabled = false
         
-        textFieldSet(text: "TOP", textfield: &topTextField)
-        textFieldSet(text: "BOTTOM", textfield: &bottomTextField)
-       
+        textFieldSet(text: "TOP", textfield: &topTextField, self)
+        textFieldSet(text: "BOTTOM", textfield: &bottomTextField, self)
     }
     
-    func textFieldSet (text: String, textfield: inout UITextField!){
-        textfield.defaultTextAttributes = memeTextAttributes
-        textfield.text = text
-        textfield.textAlignment = .center
-        textfield.delegate = self
-        
-        
-    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
@@ -157,9 +142,19 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         return memedImage
     }
+    
     func save(){
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: memedImage)
         
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
+        
+        appDelegate.memes.append(meme)
+        
+    }
+    
+    @IBAction func cancelEditor(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
   
 }
