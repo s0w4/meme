@@ -27,8 +27,6 @@ class MemeCollectionViewController: UICollectionViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //self.tabBarController?.tabBar.isHidden = false
-        
         memeCollectionView?.reloadData()
     }
     
